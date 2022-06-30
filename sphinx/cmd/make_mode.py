@@ -60,6 +60,7 @@ class Make:
     def build_clean(self) -> int:
         srcdir = path.abspath(self.srcdir)
         builddir = path.abspath(self.builddir)
+        gendir = path.abspath("srcdir" + "/generated")
         if not path.exists(self.builddir):
             return 0
         elif not path.isdir(self.builddir):
@@ -74,6 +75,12 @@ class Make:
         print("Removing everything under %r..." % self.builddir)
         for item in os.listdir(self.builddir):
             rmtree(self.builddir_join(item))
+            
+        if path.exists(gendir):
+            print("Removing generated .rst files under %r...", % gendir)
+            for item in os.listdir(gendir):
+                rmtree(path.join(gendir, item)
+                
         return 0
 
     def build_help(self) -> None:
